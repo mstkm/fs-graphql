@@ -111,6 +111,7 @@ const typeDefs = /* GraphQL */`
     name: String!
     born: Int
     bookCount: Int!
+    id: ID!
   }
   
   type Query {
@@ -159,6 +160,7 @@ const resolvers = {
       name: author.name,
       born: author.born,
       bookCount: books.filter((book) => book.author === author.name).length,
+      id: author.id
     }))
   },
   Mutation: {
@@ -169,6 +171,7 @@ const resolvers = {
         author = {
           name: args.author,
           born: null,
+          id: uuid()
         }
 
         authors = authors.concat(author)
