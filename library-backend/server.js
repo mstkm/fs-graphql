@@ -5,11 +5,6 @@ const resolvers = require('./resolvers')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-})
-
 const getUserFromAuthHeader = (auth) => {
   if (!auth || !auth.startsWith('Bearer ')) {
     return null
@@ -24,6 +19,11 @@ const getUserFromAuthHeader = (auth) => {
 }
 
 const startServer = (port) => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  })
+
   startStandaloneServer(server, {
     listen: { port },
     context: async ({ req }) => {

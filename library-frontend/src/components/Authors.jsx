@@ -66,43 +66,49 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-
-      <h2>Set birth year</h2>
-
-      <form onSubmit={submit}>
+      
+      {props.token && (
         <div>
-          <label htmlFor="author">Author</label>
+          <h2>Set birthyear</h2>
 
-          <select
-            id="author"
-            value={selectedAuthor}
-            onChange={({ target }) =>
-              setSelectedAuthor(target.value)
-            }
-          >
-            <option value="">Select author</option>
+          <form onSubmit={submit}>
+            <div>
+              <label htmlFor="author">Author</label>
 
-            {authors.map((author) => (
-              <option key={author.name} value={author.name}>
-                {author.name}
-              </option>
-            ))}
-          </select>
+              <select
+                id="author"
+                name="name"
+                value={selectedAuthor}
+                onChange={({ target }) =>
+                  setSelectedAuthor(target.value)
+                }
+              >
+                <option value="">Select author</option>
+
+                {authors.map((author) => (
+                  <option key={author.name} value={author.name}>
+                    {author.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="born">Born</label>
+
+              <input
+                id="born"
+                type="number"
+                value={born}
+                onChange={({ target }) => setBorn(target.value)}
+              />
+            </div>
+
+            <button type="submit">Update author</button>
+          </form>
         </div>
-
-        <div>
-          <label htmlFor="born">Born</label>
-
-          <input
-            id="born"
-            type="number"
-            value={born}
-            onChange={({ target }) => setBorn(target.value)}
-          />
-        </div>
-
-        <button type="submit">Update author</button>
-      </form>
+      )}
+      
     </div>
   )
 }

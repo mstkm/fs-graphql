@@ -28,7 +28,9 @@ const resolvers = {
       return Book.find(filter)
     },
     allAuthors: async () => Author.find({}),
-    me: (root, args, context) => context.currentUser
+    me: (root, args, context) => {
+      return context.currentUser
+    }
   },
   Mutation: {
     addBook: async (root, args, context) => {
@@ -119,7 +121,7 @@ const resolvers = {
 
     login: async (root, args) => {
       const user = await User.findOne({ username: args.username })
-
+      console.log(args.username, user)
       if (!user || args.password !== 'secret') {
         throw new GraphQLError('wrong credentials', {
           extensions: {
